@@ -1,17 +1,17 @@
 let questions = [
     {
-        question: "Which letter is right?",
+        question: "Which letter is first?",
         answer: "B",
-        choices: ["A", "C", "D"]
+        choices: ["A", "B", "C", "D"]
     },
     {
-        question: "Which letter is right?",
-        answer: "C",
-        altAnswers: ["A", "B", "D"]
+        question: "Which letter is second?",
+        answer: "E",
+        choices: ["E", "F", "G", "H"]
     },
     {
-        question: "Which letter is right?",
-        answer: "A",
-        altAnswers: ["B", "C", "D"]
+        question: "Which letter is third?",
+        answer: "L",
+        choices: ["Z", "X", "L", "K"]
     }
 ]
