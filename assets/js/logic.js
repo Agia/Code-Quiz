@@ -22,13 +22,14 @@ let questionIndex = 0;
 
 // Timer function for countdown
 function startTimer() {
-    timeRemaining = 60;
+    timeRemaining = 4;
 
     timerInterval = setInterval(function () {
         timerCount.textContent = timeRemaining;
         timeRemaining--;
 
-        if (timeRemaining === 0) {
+        if (timeRemaining < 0) {
+            clearInterval(timerInterval);
             // TODO: Call function to show results section
         }
     }, 1000)
@@ -80,7 +81,7 @@ function renderQuestion () {
 startButton.addEventListener("click", function (event) {
     event.preventDefault();
     // TODO: If timer already running check
-    
+
     startTimer();
 
     // TODO: Call function to render question section
