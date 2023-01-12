@@ -22,7 +22,7 @@ let questionIndex = 0;
 
 // Timer function for countdown
 function startTimer() {
-    timeRemaining = 4;
+    timeRemaining = 60;
 
     timerInterval = setInterval(function () {
         timerCount.textContent = timeRemaining;
