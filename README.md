@@ -15,12 +15,12 @@ You can use the app directly via it's Github Pages deployment (found [**here**](
 
 Included below is a gif showing the app in use:
 
-// TODO - Upload screenshot gif, and double check all links are working.
+ <!-- TODO - Upload screenshot gif, and double check all links are working. -->
 
 ![Gif screenshot showing the code quiz at various points in use.](assets/img/screenshot.gif)
 
 ## Credits
 
-// TODO - Populate Credits section
+<!-- TODO - Populate Credits section -->
 - []()
 - []()
