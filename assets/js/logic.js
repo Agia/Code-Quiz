@@ -1,22 +1,37 @@
 // ********* VARIABLES ********** //
 
+// Start quiz button
 let startButton = document.querySelector('#start');
+// <div> containing start screen content
 let startSection = document.querySelector('#start-screen');
 
+// Display text showing timer
 let timerCount = document.querySelector('#time');
+// Timer countdown
 let timeRemaining = 0;
 
+// <div> containing question and answers content
 let questionsSection = document.querySelector('#questions');
+// <h2> for questions
 let questionTitle = document.querySelector('#question-title');
+// <div> containing choices content
 let choices = document.querySelector('#choices');
 
+// <div> containing end screen / results
 let resultsSection = document.querySelector('#end-screen');
-let initials = document.querySelector('#initials');
+// <span> containing users final score
 let finalScore = document.querySelector('#final-score');
+// Input for user initials
+let initials = document.querySelector('#initials');
+// Button to submit score to highscores
 let submitScore = document.querySelector('#submit');
+// Current score counter
+let score = 0;
 
+// Index count for use questions array related tasks
 let questionIndex = 0;
 
+let userChoice = "";
 
 
 // ********* FUNCTIONS ********** //
@@ -36,16 +51,19 @@ function startTimer() {
     }, 1000)
 }
 
+// Function to render questions and choices to screen
 function renderQuestion () {
+    // Removes any text content from choices buttons and question header
     choices.innerHTML = "";
     questionTitle.innerHTML = "";
 
     if (questionIndex === questions.length) {
+        // Resets questionIndex to 0 on complete cycle through array
         questionIndex = 0;
+        // Calls function to show results section
         showResults();
+        // Exits from renderQuestion function
         return;
-        // TODO: Call function to show results section
-
     }
 
     // Checks if the start section has a class of hide, and if not appends it to it's current class
@@ -71,13 +89,27 @@ function renderQuestion () {
         let answerButton = document.createElement("button");
         // Adds the current choice as text to the button
         answerButton.textContent = choice;
+        answerButton.setAttribute("class", "answer-button")
         // Appends the button to the parent choices div
         choices.appendChild(answerButton);
     }
 
-    questionIndex++;
+    // questionIndex++;
 }
 
+function checkAnswer() {
+    if (userChoice === questions[questionIndex].answer) {
+        // TODO: Display message to screen "Correct"
+        score++;
+    } else {
+        // TODO: Display message to screen "Incorrect"
+        timeRemaining -= 10;
+    }
+    questionIndex++;
+    renderQuestion();
+}
+
+// Function to show results page
 function showResults() {
     questionsSection.setAttribute("class", "hide");
     resultsSection.removeAttribute("class")
@@ -90,14 +122,18 @@ function showResults() {
 startButton.addEventListener("click", function (event) {
     event.preventDefault();
     // TODO: If timer already running check
-
+    // Starts the timer function
     startTimer();
-
     // Calls function to render question section
     renderQuestion();
 })
 
 // Event listener for answers / choices buttons
 choices.addEventListener("click", function (event) {
+    event.preventDefault();
 
+    if (event.target.matches("button")) {
+        userChoice = event.target.textContent;
+        checkAnswer();
+    }
 })
