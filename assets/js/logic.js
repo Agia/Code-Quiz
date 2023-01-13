@@ -4,6 +4,7 @@ let startButton = document.querySelector('#start');
 let startSection = document.querySelector('#start-screen');
 
 let timerCount = document.querySelector('#time');
+let timeRemaining = 0;
 
 let questionsSection = document.querySelector('#questions');
 let questionTitle = document.querySelector('#question-title');
@@ -37,10 +38,14 @@ function startTimer() {
 
 function renderQuestion () {
     choices.innerHTML = "";
+    questionTitle.innerHTML = "";
 
     if (questionIndex === questions.length) {
+        questionIndex = 0;
+        showResults();
         return;
         // TODO: Call function to show results section
+
     }
 
     // Checks if the start section has a class of hide, and if not appends it to it's current class
@@ -73,6 +78,10 @@ function renderQuestion () {
     questionIndex++;
 }
 
+function showResults() {
+    questionsSection.setAttribute("class", "hide");
+    resultsSection.removeAttribute("class")
+}
 
 
 // ********* EVENT LISTENERS ********** //
@@ -84,6 +93,11 @@ startButton.addEventListener("click", function (event) {
 
     startTimer();
 
-    // TODO: Call function to render question section
+    // Calls function to render question section
+    renderQuestion();
+})
+
+// Event listener for answers / choices buttons
+choices.addEventListener("click", function (event) {
 
 })
