@@ -4,6 +4,7 @@
 let startButton = document.querySelector('#start');
 // <div> containing start screen content
 let startSection = document.querySelector('#start-screen');
+let scoresLink = document.querySelector("#scores-link")
 
 // Display text showing timer
 let timerCount = document.querySelector('#time');
@@ -34,6 +35,8 @@ let score = 0;
 let questionIndex = 0;
 
 let userChoice = "";
+
+let highscores = JSON.parse(localStorage.getItem("scoresData") || '[]');
 
 
 // ********* FUNCTIONS ********** //
@@ -104,10 +107,10 @@ function renderQuestion () {
 function checkAnswer() {
     feedback.removeAttribute("class");
     if (userChoice === questions[questionIndex].answer) {
-        feedback.innerHTML = "Correct!";
+        feedback.innerHTML = "Go you! Correct!";
         score++;
     } else {
-        feedback.innerHTML = "Incorrect! You lose 10 seconds.";
+        feedback.innerHTML = "Incorrect! Deducted 10 seconds.";
         timeRemaining -= 10;
     }
     questionIndex++;
@@ -131,6 +134,8 @@ function hideSection(element) {
 }
 
 
+
+
 // ********* EVENT LISTENERS ********** //
 
 // Event listener for 'Start Quiz' button
@@ -141,7 +146,7 @@ startButton.addEventListener("click", function (event) {
     startTimer();
     // Calls function to render question section
     renderQuestion();
-})
+});
 
 // Event listener for answers / choices buttons
 choices.addEventListener("click", function (event) {
@@ -151,4 +156,27 @@ choices.addEventListener("click", function (event) {
         userChoice = event.target.textContent;
         checkAnswer();
     }
-})
+});
+
+submitScore.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    // Set user inputted name to variable
+    let endScore = finalScore.textContent;
+    let userInitials = initials.value;
+
+    if (userInitials === "") {
+        return;
+    }
+
+    userSaveData = {"initials": userInitials, "score": endScore};
+    // Push new saved data to highScores array
+    highscores.push(userSaveData);
+
+    // Save to local storage
+    localStorage.setItem("scoresData", JSON.stringify(highscores));
+    
+    initials.value = "";
+    resultsSection.setAttribute("class", "hide");
+    startSection.setAttribute("class", "start");
+});

@@ -1,6 +1,6 @@
 let questions = [
     {
-        question: "If you link to your JavaScript script file in the <head> of your HTML, what attribute should you include?",
+        question: "If you link to your JavaScript script file in the <head> of your HTML, what attribute should you usually include?",
         answer: "defer",
         choices: ["here", "load", "defer", "type"]
     },
@@ -16,8 +16,8 @@ let questions = [
     },
     {
         question: "Which method adds a new element to the beginning of an array?",
-        answer: "unShift()",
-        choices: ["shift()", "push()", "unShift()", "pop()"]
+        answer: "unshift()",
+        choices: ["shift()", "push()", "unshift()", "pop()"]
     },
     {
         question: "Which method calls a specified function on each element in a given array?",
@@ -34,4 +34,4 @@ let questions = [
         answer: "JSON",
         choices: ["DOM", "Web", "Window", "JSON"]
     }
-]
+];
