@@ -17,6 +17,8 @@ let questionTitle = document.querySelector('#question-title');
 // <div> containing choices content
 let choices = document.querySelector('#choices');
 
+let feedback = document.querySelector('#feedback');
+
 // <div> containing end screen / results
 let resultsSection = document.querySelector('#end-screen');
 // <span> containing users final score
@@ -44,11 +46,15 @@ function startTimer() {
         timerCount.textContent = timeRemaining;
         timeRemaining--;
 
-        if (timeRemaining < 0) {
-            clearInterval(timerInterval);
-            // TODO: Call function to show results section
+        if (timeRemaining <= 0) {
+            showResults();
         }
     }, 1000)
+}
+
+function endTimer() {
+    clearInterval(timerInterval);
+    timerCount.textContent = 0;
 }
 
 // Function to render questions and choices to screen
@@ -93,16 +99,15 @@ function renderQuestion () {
         // Appends the button to the parent choices div
         choices.appendChild(answerButton);
     }
-
-    // questionIndex++;
 }
 
 function checkAnswer() {
+    feedback.removeAttribute("class");
     if (userChoice === questions[questionIndex].answer) {
-        // TODO: Display message to screen "Correct"
+        feedback.innerHTML = "Correct!";
         score++;
     } else {
-        // TODO: Display message to screen "Incorrect"
+        feedback.innerHTML = "Incorrect! You lose 10 seconds.";
         timeRemaining -= 10;
     }
     questionIndex++;
@@ -111,8 +116,18 @@ function checkAnswer() {
 
 // Function to show results page
 function showResults() {
-    questionsSection.setAttribute("class", "hide");
+    hideSection(questionsSection);
+    hideSection(feedback);
     resultsSection.removeAttribute("class")
+
+    endTimer();
+    finalScore.textContent = score;
+    
+}
+
+// Hides the passed element via CSS, using .hide
+function hideSection(element) {
+    element.setAttribute("class", "hide");
 }
 
 

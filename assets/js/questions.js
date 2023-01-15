@@ -10,7 +10,7 @@ let questions = [
         choices: ["block", "function", "variable", "constant"]
     },
     {
-        question: "numbers, strings and boolean are considered what kind of data type?",
+        question: "Numbers, strings and boolean are considered what kind of data type?",
         answer: "primitive",
         choices: ["complex", "decimals", "simple", "primitive"]
     },
