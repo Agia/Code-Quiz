@@ -28,6 +28,8 @@ let finalScore = document.querySelector('#final-score');
 let initials = document.querySelector('#initials');
 // Button to submit score to highscores
 let submitScore = document.querySelector('#submit');
+// <p> to provide user feedback if submission is out of certain parameters
+let submissionFeedback = document.querySelector('#submission-feedback');
 // Current score counter
 let score = 0;
 
@@ -107,10 +109,10 @@ function renderQuestion () {
 function checkAnswer() {
     feedback.removeAttribute("class");
     if (userChoice === questions[questionIndex].answer) {
-        feedback.innerHTML = "Go you! Correct!";
+        feedback.innerHTML = "Correct! Go you 🥳";
         score++;
     } else {
-        feedback.innerHTML = "Incorrect! Deducted 10 seconds.";
+        feedback.innerHTML = "Incorrect! Oops 🙊";
         timeRemaining -= 10;
     }
     questionIndex++;
@@ -141,7 +143,7 @@ function hideSection(element) {
 // Event listener for 'Start Quiz' button
 startButton.addEventListener("click", function (event) {
     event.preventDefault();
-    // TODO: If timer already running check
+    score = 0;
     // Starts the timer function
     startTimer();
     // Calls function to render question section
@@ -164,8 +166,15 @@ submitScore.addEventListener("click", function (event) {
     // Set user inputted name to variable
     let endScore = finalScore.textContent;
     let userInitials = initials.value;
+    submissionFeedback.textContent = "";
 
     if (userInitials === "") {
+        submissionFeedback.textContent = "You must enter at lease 1 characters to submit your score."
+        return;
+    }
+    if (userInitials.length > 3) {
+        submissionFeedback.textContent = "Your username must be no longer than 3 characters."
+        initials.value = "";
         return;
     }
 
