@@ -172,7 +172,7 @@ submitScore.addEventListener("click", function (event) {
 
     // Checks for an empty value
     if (userInitials === "") {
-        submissionFeedback.textContent = "You must enter at lease 1 characters to submit your score."
+        submissionFeedback.textContent = "You must enter at least 1 character to submit your score."
         return;
     }
     // Checks to make sure the input is within the required length range
