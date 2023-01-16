@@ -1,5 +1,5 @@
 let clearScoreButton = document.querySelector("#clear");
-let scoreList = document.querySelector("#highscores");
+let scoreTable = document.querySelector("#highscores");
 
 
 function showHighscores() {
@@ -9,10 +9,11 @@ function showHighscores() {
         for (let i = 0; i < savedScores.length; i++) {
             let initials = savedScores[i].initials.toUpperCase();
             let score = savedScores[i].score;
-            let userRow = document.createElement("li");
+            let userRow = document.createElement("tr");
 
-            userRow.textContent = `${initials} : ${score}`;
-            scoreList.appendChild(userRow);
+            userRow.innerHTML = `<td>${initials}</td><td>${score}</td>`
+
+            scoreTable.appendChild(userRow);
         }
     }
 };
@@ -26,7 +27,7 @@ if (document.getElementById('score-page')) {
 
 function clearScores () {
     highscores = [];
-    scoreList.innerHTML = "";
+    scoreTable.innerHTML = "";
     localStorage.removeItem("scoresData");
 };
 
