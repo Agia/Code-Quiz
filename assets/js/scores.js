@@ -8,6 +8,11 @@ function showHighscores() {
     let savedScores = JSON.parse(localStorage.getItem("scoresData") || '[]');
 
     if (savedScores.length >= 1) {
+        // Sorts the score from highest to lowest
+        savedScores.sort(function (i,j) {
+            return j.score - i.score;
+        })
+        // Prints a table row, with  a td element for each property (initial and score).
         for (let i = 0; i < savedScores.length; i++) {
             let initials = savedScores[i].initials.toUpperCase();
             let score = savedScores[i].score;
