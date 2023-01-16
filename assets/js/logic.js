@@ -30,14 +30,14 @@ let initials = document.querySelector('#initials');
 let submitScore = document.querySelector('#submit');
 // <p> to provide user feedback if submission is out of certain parameters
 let submissionFeedback = document.querySelector('#submission-feedback');
+
 // Current score counter
 let score = 0;
-
 // Index count for use questions array related tasks
 let questionIndex = 0;
-
+// Will store the textContent of possible answers
 let userChoice = "";
-
+// Set the array to be the content of named localStorage, if it doesn't exist create an empty array
 let highscores = JSON.parse(localStorage.getItem("scoresData") || '[]');
 
 
@@ -106,6 +106,7 @@ function renderQuestion () {
     }
 }
 
+// Checks if answer is correct, shows feedback, adds to score / deduces from time, then increasing question to next index, and calls renderQuestion()
 function checkAnswer() {
     feedback.removeAttribute("class");
     if (userChoice === questions[questionIndex].answer) {
@@ -136,8 +137,6 @@ function hideSection(element) {
 }
 
 
-
-
 // ********* EVENT LISTENERS ********** //
 
 // Event listener for 'Start Quiz' button
@@ -154,30 +153,36 @@ startButton.addEventListener("click", function (event) {
 choices.addEventListener("click", function (event) {
     event.preventDefault();
 
+    // if click matches on button, assign the textcontent of its target to variable, then call checkAnswer()
     if (event.target.matches("button")) {
         userChoice = event.target.textContent;
         checkAnswer();
     }
 });
 
+// Event listener for user input on result page
 submitScore.addEventListener("click", function (event) {
     event.preventDefault();
 
     // Set user inputted name to variable
     let endScore = finalScore.textContent;
     let userInitials = initials.value;
+    // Empty feedback of any previous content
     submissionFeedback.textContent = "";
 
+    // Checks for an empty value
     if (userInitials === "") {
         submissionFeedback.textContent = "You must enter at lease 1 characters to submit your score."
         return;
     }
+    // Checks to make sure the input is within the required length range
     if (userInitials.length > 3) {
         submissionFeedback.textContent = "Your username must be no longer than 3 characters."
         initials.value = "";
         return;
     }
 
+    // Creates a object to score the current users initials and score
     userSaveData = {"initials": userInitials, "score": endScore};
     // Push new saved data to highScores array
     highscores.push(userSaveData);
@@ -185,7 +190,9 @@ submitScore.addEventListener("click", function (event) {
     // Save to local storage
     localStorage.setItem("scoresData", JSON.stringify(highscores));
     
+    // Reset initials input value to empty string
     initials.value = "";
+    // Hide results section and show start section
     resultsSection.setAttribute("class", "hide");
     startSection.setAttribute("class", "start");
 });
